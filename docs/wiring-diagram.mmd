@@ -1,0 +1,50 @@
+---
+title: Arduino Sensor Wiring — TMP36 + Piezo
+config:
+  theme: neutral
+  look: classic
+---
+flowchart TB
+  accTitle: Arduino Uno R3 wiring diagram for TMP36 and Piezo sensors
+  accDescr: Shows power, ground, and analog signal connections between Arduino and both sensors including the 1 megaohm bleeder resistor on the piezo.
+
+  subgraph Arduino["Arduino Uno R3"]
+    direction TB
+    USB[USB to PC]
+    P5V[5V]
+    PGND[GND]
+    PA0[A0 — Analog In]
+    PA1[A1 — Analog In]
+  end
+
+  subgraph TMP36["TMP36 Temperature Sensor"]
+    direction TB
+    T1["Pin 1 — VCC"]
+    T2["Pin 2 — OUT"]
+    T3["Pin 3 — GND"]
+  end
+
+  subgraph Piezo["Piezo Vibration Sensor"]
+    direction TB
+    PZ1["Leg 1 (+)"]
+    PZ2["Leg 2 (−)"]
+  end
+
+  R1["1 MΩ Resistor\n(bleeder)"]
+
+  %% Power connections
+  P5V -->|"red wire"| T1
+  PGND -->|"black wire"| T3
+  PGND -->|"black wire"| PZ2
+
+  %% Signal connections
+  T2 -->|"orange wire → A0"| PA0
+  PZ1 -->|"yellow wire → A1"| PA1
+
+  %% Bleeder resistor (parallel with piezo)
+  PA1 -.-|"1MΩ"| R1
+  R1 -.-|"to GND"| PGND
+
+  %% Data flow
+  USB -.->|"serial JSON @ 9600 baud"| PC[Host PC]
+  PC -.->|"Python bridge"| Cloud[Azure IoT Hub]

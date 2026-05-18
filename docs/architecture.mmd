@@ -1,56 +1,59 @@
 ---
-title: Industrial IoT Streaming & Anomaly Detection Pipeline
+title: Industrial IoT Streaming and Anomaly Detection Pipeline
 config:
   theme: neutral
   look: classic
+  flowchart:
+    nodeSpacing: 30
+    rankSpacing: 60
+    padding: 16
 ---
-flowchart LR
+flowchart TD
   accTitle: End-to-end IoT pipeline architecture
-  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, storage layers, and into dashboards with full observability.
+  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, dual storage layers, Azure Functions, and into Power BI dashboards. Observability spans the full pipeline via Azure Monitor, Application Insights, and OpenTelemetry.
 
-  subgraph Device["🔧 Device Layer"]
-    A[Arduino + Accelerometer]
+  subgraph Device [Device Layer]
+    A[Arduino Uno + Sensors]
   end
 
-  subgraph Ingestion["☁️ Ingestion"]
+  subgraph Ingestion [Cloud Ingestion]
     B[Azure IoT Hub]
-    B2[Device Provisioning Service]
   end
 
-  subgraph Processing["⚡ Stream Processing"]
+  subgraph Processing [Stream Processing]
     C[Azure Stream Analytics]
-    C2[Anomaly Detection\nSpikeAndDip]
+    C2[Anomaly Detection]
   end
 
-  subgraph Storage["💾 Storage"]
-    D1[ADLS Gen2\nRaw / Bronze]
-    D2[Azure SQL / ADX\nCurated / Silver]
+  subgraph Storage [Storage]
+    direction LR
+    D1[ADLS Gen2 — Raw]
+    D2[Azure SQL — Curated]
   end
 
-  subgraph Compute["⚙️ Compute"]
-    E[Azure Functions\nTimer-triggered]
+  subgraph Compute [Compute]
+    E[Azure Functions]
   end
 
-  subgraph Visualization["📊 Dashboards"]
-    F[Power BI\nReal-time]
+  subgraph Viz [Visualization]
+    F[Power BI Dashboard]
   end
 
-  subgraph Observability["🔍 Observability"]
+  subgraph Observability [Observability]
+    direction LR
     G1[Azure Monitor]
     G2[Application Insights]
-    G3[OpenTelemetry]
   end
 
-  A -->|telemetry| B
-  B2 -.->|provisions| B
-  B -->|events| C
+  A -- serial telemetry --> PC[Host PC — Python Bridge]
+  PC -- HTTPS --> B
+  B -- event stream --> C
   C --> C2
-  C -->|raw archive| D1
-  C2 -->|anomalies| D2
+  C -- raw archive --> D1
+  C2 -- anomaly results --> D2
   D2 --> E
-  E -->|push metrics| F
+  E -- streaming push --> F
 
-  B -.->|metrics| G1
-  C -.->|metrics| G1
-  E -.->|traces & logs| G2
-  G3 -.->|export| G2
+  B -. platform metrics .-> G1
+  C -. job metrics .-> G1
+  E -. traces and logs .-> G2
