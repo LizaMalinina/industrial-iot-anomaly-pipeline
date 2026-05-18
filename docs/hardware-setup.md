@@ -180,7 +180,7 @@ Connect a **1 MΩ (megaohm)** resistor **in parallel** across the piezo element
 
 ### Steps
 
-1. Open `device/sensor_firmware.ino` in Arduino IDE
+1. Open `device/sensor_firmware/sensor_firmware.ino` in Arduino IDE
 2. Select **Board**: `Arduino Uno` (Tools → Board → Arduino AVR Boards → Arduino Uno)
 3. Select **Port**: the COM port that appeared when you plugged in the Arduino
    - Check in Device Manager → Ports (COM & LPT) → "Arduino Uno (COMx)"

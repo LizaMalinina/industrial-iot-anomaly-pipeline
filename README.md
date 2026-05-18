@@ -98,7 +98,7 @@ device/         Arduino firmware — reads sensors, outputs JSON over serial
 bridge/         Python serial-to-cloud forwarder (tested, async)
   tests/        Unit tests (parser, validator, forwarder)
 infra/          Bicep modules and deployment scripts
-  modules/      IoT Hub, Storage Account
+  modules/      IoT Hub, Storage, ADX, Stream Analytics
 stream-jobs/    Stream Analytics query definitions
 functions/      Azure Functions for downstream processing
 simulator/      Device simulator for load and integration testing
@@ -158,10 +158,11 @@ This project is under active development. Current state:
 - [x] Device firmware (Arduino, dual-sensor JSON telemetry)
 - [x] Python bridge with structured parsing and async IoT Hub forwarding
 - [x] Unit tests for bridge components (13 passing)
-- [x] Azure infrastructure (Bicep — IoT Hub, Storage)
+- [x] Azure infrastructure (Bicep — IoT Hub, Storage, ADX, Stream Analytics)
 - [x] Architecture documentation and hardware setup guide
-- [ ] Stream Analytics job definitions
-- [ ] Azure Functions for downstream processing
+- [x] Stream Analytics anomaly detection job (spike/dip on temperature and vibration)
+- [x] Device-to-cloud data flow verified (800+ messages ingested)
 - [ ] ADX dashboard (real-time telemetry and anomaly views)
+- [ ] Azure Functions for downstream processing
 - [ ] Device simulator for load testing
 - [ ] End-to-end integration tests

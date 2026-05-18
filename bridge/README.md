@@ -33,6 +33,8 @@ The bridge logs each message as it is published to IoT Hub, including the device
 
 ## Test (without hardware)
 
-```bash
-pytest tests/ -v
+From the repository root:
+
+```powershell
+python -m pytest bridge/tests/ -v
 ```

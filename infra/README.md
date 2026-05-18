@@ -4,16 +4,19 @@ Azure Bicep infrastructure for the Industrial IoT Anomaly Detection Pipeline.
 
 ## What gets deployed
 
-- Azure IoT Hub (`F1` or `S1`, parameterized)
-- IoT Hub device identity for a development sensor/device
-- Storage Account with the `raw-telemetry` blob container for the bronze layer
-- Outputs for IoT Hub hostname, built-in Event Hub-compatible endpoint details, and CLI commands to fetch connection strings
+- Azure IoT Hub (`F1` or `S1`, parameterized) with consumer groups
+- Storage Account with the `raw-telemetry` blob container (bronze layer)
+- Azure Data Explorer cluster (Dev/Test SKU) with `telemetry` database, `SensorReadings` and `SensorAnomalies` tables, and IoT Hub data connection
+- Azure Stream Analytics job with anomaly detection (spike/dip on temperature and vibration)
+- Device identity created via Azure CLI post-deployment
 
 ## Files
 
 - `main.bicep` - resource-group level orchestration
-- `modules\iot-hub.bicep` - IoT Hub, consumer group, and device identity
+- `modules\iot-hub.bicep` - IoT Hub and consumer groups
 - `modules\storage.bicep` - Storage account and blob container
+- `modules\adx.bicep` - ADX cluster, database, tables, JSON mapping, data connection
+- `modules\stream-analytics.bicep` - Stream Analytics job with anomaly detection query
 - `parameters.dev.json` - dev environment defaults
 - `deploy.ps1` - one-command deployment helper
 
@@ -46,8 +49,14 @@ The script creates the resource group if it does not exist and then runs a group
 - `environmentName` - defaults to `dev`
 - `iotHubSkuName` - `F1` or `S1`
 - `iotHubSkuCapacity` - keep `1` for `F1`
-- `deviceId` - device identity to register in IoT Hub
 - `telemetryContainerName` - raw telemetry landing container, defaults to `raw-telemetry`
+
+Note: Device identities cannot be created via ARM/Bicep. After deployment, create the device manually:
+
+```powershell
+az iot hub device-identity create --hub-name <iotHubName> --device-id sensor-dev-001
+az iot hub device-identity connection-string show --hub-name <iotHubName> --device-id sensor-dev-001 -o tsv
+```
 
 ## Outputs
 
