@@ -1,0 +1,56 @@
+---
+title: Industrial IoT Streaming & Anomaly Detection Pipeline
+config:
+  theme: neutral
+  look: classic
+---
+flowchart LR
+  accTitle: End-to-end IoT pipeline architecture
+  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, storage layers, and into dashboards with full observability.
+
+  subgraph Device["🔧 Device Layer"]
+    A[Arduino + Accelerometer]
+  end
+
+  subgraph Ingestion["☁️ Ingestion"]
+    B[Azure IoT Hub]
+    B2[Device Provisioning Service]
+  end
+
+  subgraph Processing["⚡ Stream Processing"]
+    C[Azure Stream Analytics]
+    C2[Anomaly Detection\nSpikeAndDip]
+  end
+
+  subgraph Storage["💾 Storage"]
+    D1[ADLS Gen2\nRaw / Bronze]
+    D2[Azure SQL / ADX\nCurated / Silver]
+  end
+
+  subgraph Compute["⚙️ Compute"]
+    E[Azure Functions\nTimer-triggered]
+  end
+
+  subgraph Visualization["📊 Dashboards"]
+    F[Power BI\nReal-time]
+  end
+
+  subgraph Observability["🔍 Observability"]
+    G1[Azure Monitor]
+    G2[Application Insights]
+    G3[OpenTelemetry]
+  end
+
+  A -->|telemetry| B
+  B2 -.->|provisions| B
+  B -->|events| C
+  C --> C2
+  C -->|raw archive| D1
+  C2 -->|anomalies| D2
+  D2 --> E
+  E -->|push metrics| F
+
+  B -.->|metrics| G1
+  C -.->|metrics| G1
+  E -.->|traces & logs| G2
+  G3 -.->|export| G2
