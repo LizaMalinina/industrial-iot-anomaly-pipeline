@@ -10,7 +10,7 @@ config:
 ---
 flowchart TD
   accTitle: End-to-end IoT pipeline architecture
-  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, dual storage layers, Azure Functions, and into Power BI dashboards. Observability spans the full pipeline via Azure Monitor, Application Insights, and OpenTelemetry.
+  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, dual storage layers, Azure Functions, and into ADX dashboards. Observability spans the full pipeline via Azure Monitor, Application Insights, and OpenTelemetry.
 
   subgraph Device [Device Layer]
     A[Arduino Uno + Sensors]
@@ -36,7 +36,7 @@ flowchart TD
   end
 
   subgraph Viz [Visualization]
-    F[Power BI Dashboard]
+    F[ADX Dashboard]
   end
 
   subgraph Observability [Observability]

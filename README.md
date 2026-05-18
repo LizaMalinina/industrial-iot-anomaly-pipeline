@@ -33,7 +33,7 @@ ADLS Gen2 (bronze)     Azure Data Explorer (silver)
                             |  KQL queries
                       Azure Functions
                             |
-                      Power BI Dashboard
+                      ADX Dashboard
 ```
 
 **Observability layer** (spans full pipeline):
@@ -86,7 +86,7 @@ The system is designed to answer questions like:
 | Storage (raw) | Azure Data Lake Storage Gen2 |
 | Storage (curated) | Azure Data Explorer (Kusto / KQL) |
 | Compute | Azure Functions (Python) |
-| Visualization | Power BI (streaming dataset) |
+| Visualization | Azure Data Explorer Dashboards (native KQL) |
 | Observability | Azure Monitor, Application Insights, OpenTelemetry |
 | Infrastructure | Bicep (modular, parameterized) |
 | Testing | pytest, pytest-asyncio, device simulator |
@@ -162,6 +162,6 @@ This project is under active development. Current state:
 - [x] Architecture documentation and hardware setup guide
 - [ ] Stream Analytics job definitions
 - [ ] Azure Functions for downstream processing
-- [ ] Power BI dashboard
+- [ ] ADX dashboard (real-time telemetry and anomaly views)
 - [ ] Device simulator for load testing
 - [ ] End-to-end integration tests
