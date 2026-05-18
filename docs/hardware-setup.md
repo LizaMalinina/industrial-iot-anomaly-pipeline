@@ -3,6 +3,8 @@
 Wiring and validation instructions for the Arduino Uno R3 sensor station
 (TMP36 temperature sensor + Piezo vibration sensor).
 
+![Wiring Diagram](arduino-wiring.png)
+
 ---
 
 ## Bill of Materials
