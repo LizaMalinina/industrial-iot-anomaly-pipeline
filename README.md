@@ -125,20 +125,19 @@ cd infra
 
 Follow [`docs/hardware-setup.md`](docs/hardware-setup.md) for wiring, component details, and validation steps.
 
-### 3. Run the bridge
-
-```powershell
-cd bridge
-pip install -r requirements.txt
-$env:IOT_HUB_CONNECTION_STRING = "<from deployment output>"
-$env:SERIAL_PORT = "COM3"
-python -m bridge.bridge
-```
-
-### 4. Run tests
+### 3. Run tests
 
 ```powershell
 python -m pytest bridge/tests/ -v
+```
+
+### 4. Run the bridge
+
+```powershell
+pip install -r bridge/requirements.txt
+$env:IOT_HUB_CONNECTION_STRING = "<from deployment output>"
+$env:SERIAL_PORT = "COM3"
+python -m bridge.bridge
 ```
 
 ## Reliability Considerations

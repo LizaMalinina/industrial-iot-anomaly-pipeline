@@ -42,7 +42,7 @@ All components are included in a standard Arduino starter kit.
 
 ## Wiring Diagram (Mermaid)
 
-See `docs/wiring-diagram.mmd` for a visual diagram. The schematic below shows the logical connections:
+The schematic below shows the logical connections:
 
 ```
                     Arduino Uno R3

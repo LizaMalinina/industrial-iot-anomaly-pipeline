@@ -31,7 +31,7 @@ Azure Bicep infrastructure for the Industrial IoT Anomaly Detection Pipeline.
 From PowerShell:
 
 ```powershell
-cd C:\Users\lizamalinina\Repos\iot\infra
+cd infra
 .\deploy.ps1 -ResourceGroupName rg-iiot-anomaly-dev
 ```
 
