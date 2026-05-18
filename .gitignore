@@ -21,5 +21,5 @@ device/build/
 # Pytest
 .pytest_cache/
 
-# Azure
-local.settings.json
+# Remotion workspace
+.ppt-workspace/
