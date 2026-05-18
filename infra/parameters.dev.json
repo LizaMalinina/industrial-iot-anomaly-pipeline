@@ -23,6 +23,9 @@
     "iotHubConsumerGroupName": {
       "value": "telemetry-consumers"
     },
+    "iotHubAsaConsumerGroupName": {
+      "value": "asa-consumers"
+    },
     "telemetryContainerName": {
       "value": "raw-telemetry"
     }

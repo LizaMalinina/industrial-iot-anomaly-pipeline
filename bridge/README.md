@@ -19,9 +19,17 @@ SERIAL_BAUD=9600
 
 ## Run
 
-```bash
-python bridge.py
+All commands should be run from the **repository root** (`C:\...\industrial-iot-anomaly-pipeline`), not from inside the `bridge/` folder. This avoids Python import conflicts with standard library modules.
+
+```powershell
+python -m bridge.bridge
 ```
+
+### Example Output
+
+![Bridge Output](../docs/bridge-output.png)
+
+The bridge logs each message as it is published to IoT Hub, including the device path and sequence number.
 
 ## Test (without hardware)
 

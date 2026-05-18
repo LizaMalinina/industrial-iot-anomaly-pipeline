@@ -3,7 +3,13 @@
 Wiring and validation instructions for the Arduino Uno R3 sensor station
 (TMP36 temperature sensor + Piezo vibration sensor).
 
-![Wiring Diagram](arduino-wiring.png)
+## Assembled Hardware
+
+![Hardware Photo](hardware-photo.png)
+
+## Wiring Layout
+
+![Wiring Layout](wiring-layout.png)
 
 ---
 
@@ -55,18 +61,18 @@ See `docs/wiring-diagram.mmd` for a visual diagram. The schematic below shows th
     │  │    │  │ └─────────────────────┘
     │  │    │  │
     │  │    │  │
-    ▼  ▼    ▼  │         ┌─────────────────────┐
-  ┌──────────┐ │         │     Piezo Element    │
-  │  TMP36   │ │         │                      │
-  │          │ │         │  ┌───┐    ┌───────┐  │
-  │ 1  2  3  │ │         │  │ + │    │  1MΩ  │  │
+    ▼  ▼    ▼  │         ┌───────────────────────┐
+  ┌──────────┐ │         │     Piezo Element     │
+  │  TMP36   │ │         │                       │
+  │          │ │         │  ┌───┐    ┌────────┐  │
+  │ 1  2  3  │ │         │  │ + │    │  1MΩ   │  │
   └─┬──┬──┬──┘ │         │  │leg│    │resistor│  │
-    │  │  │    │         │  └─┬─┘    └───┬───┘  │
+    │  │  │    │         │  └─┬─┘    └───┬────┘  │
     │  │  │    │         │    │          │       │
     │  │  │    └─────────┼────┴──────────┘       │
-    │  │  │              │         │              │
+    │  │  │              │         │             │
     │  │  └──── GND      │      GND bus          │
-    │  └─────── A0       └─────────────────────── │
+    │  └─────── A0       └───────────────────────┘
     └────────── 5V
 ```
 
