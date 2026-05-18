@@ -112,7 +112,7 @@ resource telemetryConnection 'Microsoft.Kusto/clusters/databases/dataConnections
     ]
     iotHubResourceId: iotHubResourceId
     mappingRuleName: sensorReadingsMappingName
-    sharedAccessPolicyName: 'service'
+    sharedAccessPolicyName: 'iothubowner'
     tableName: sensorReadingsTableName
   }
   dependsOn: [
