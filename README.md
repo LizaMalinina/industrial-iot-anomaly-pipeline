@@ -29,8 +29,8 @@ Azure Stream Analytics
     |                       |
     |  raw archive          |  anomaly output
     v                       v
-ADLS Gen2 (bronze)     Azure SQL (silver)
-                            |
+ADLS Gen2 (bronze)     Azure Data Explorer (silver)
+                            |  KQL queries
                       Azure Functions
                             |
                       Power BI Dashboard
@@ -84,7 +84,7 @@ The system is designed to answer questions like:
 | Ingestion | Azure IoT Hub |
 | Stream Processing | Azure Stream Analytics |
 | Storage (raw) | Azure Data Lake Storage Gen2 |
-| Storage (curated) | Azure SQL Database |
+| Storage (curated) | Azure Data Explorer (Kusto / KQL) |
 | Compute | Azure Functions (Python) |
 | Visualization | Power BI (streaming dataset) |
 | Observability | Azure Monitor, Application Insights, OpenTelemetry |
