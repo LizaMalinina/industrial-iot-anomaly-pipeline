@@ -31,10 +31,6 @@ flowchart TD
     D2[Azure Data Explorer — Curated]
   end
 
-  subgraph Compute [Compute]
-    E[Azure Functions]
-  end
-
   subgraph Viz [Visualization]
     F[ADX Dashboard]
   end
@@ -48,12 +44,12 @@ flowchart TD
   A -- serial telemetry --> PC[Host PC — Python Bridge]
   PC -- HTTPS --> B
   B -- event stream --> C
+  B -- direct ingestion --> D2
   C --> C2
   C -- raw archive --> D1
   C2 -- anomaly results --> D2
-  D2 --> E
-  E -- streaming push --> F
+  D2 -- KQL queries --> F
 
   B -. platform metrics .-> G1
   C -. job metrics .-> G1
-  E -. traces and logs .-> G2
+  PC -. traces and logs .-> G2

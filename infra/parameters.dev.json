@@ -11,8 +11,11 @@
     "baseName": {
       "value": "iiot-anomaly"
     },
+    "iotHubName": {
+      "value": "iiot-anomaly-s1-dev"
+    },
     "iotHubSkuName": {
-      "value": "F1"
+      "value": "S1"
     },
     "iotHubSkuCapacity": {
       "value": 1

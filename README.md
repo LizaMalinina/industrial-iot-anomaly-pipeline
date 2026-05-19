@@ -24,22 +24,23 @@ Sensors (TMP36, Piezo)
 Host PC (Python bridge — async I/O, structured logging)
     |  HTTPS / AMQP
 Azure IoT Hub
-    |  event stream
-Azure Stream Analytics
     |                       |
-    |  raw archive          |  anomaly output
+    |  event stream          |  direct ingestion
     v                       v
-ADLS Gen2 (bronze)     Azure Data Explorer (silver)
-                            |  KQL queries
-                      Azure Functions
-                            |
-                      ADX Dashboard
+Azure Stream Analytics   Azure Data Explorer (SensorReadings)
+    |                |
+    |  raw archive   |  anomaly output
+    v                v
+ADLS Gen2          ADX (SensorAnomalies)
+                        |  KQL queries
+                   ADX Dashboard
 ```
 
 **Observability layer** (spans full pipeline):
 - Azure Monitor — platform metrics from IoT Hub and Stream Analytics
-- Application Insights — custom traces, logs, and dependency tracking from Functions
-- OpenTelemetry — instrumentation standard for the Python bridge
+- Application Insights / OpenTelemetry — traces and logs from the Python bridge
+
+> In a production deployment, this extends to Azure Functions for downstream compute, custom ML models, and alert-driven automation. See [Observability Model](#observability-model) below.
 
 ## Key Design Decisions
 
@@ -85,11 +86,10 @@ The system is designed to answer questions like:
 | Stream Processing | Azure Stream Analytics |
 | Storage (raw) | Azure Data Lake Storage Gen2 |
 | Storage (curated) | Azure Data Explorer (Kusto / KQL) |
-| Compute | Azure Functions (Python) |
 | Visualization | Azure Data Explorer Dashboards (native KQL) |
 | Observability | Azure Monitor, Application Insights, OpenTelemetry |
 | Infrastructure | Bicep (modular, parameterized) |
-| Testing | pytest, pytest-asyncio, device simulator |
+| Testing | pytest, pytest-asyncio |
 
 ## Repository Structure
 
@@ -100,8 +100,7 @@ bridge/         Python serial-to-cloud forwarder (tested, async)
 infra/          Bicep modules and deployment scripts
   modules/      IoT Hub, Storage, ADX, Stream Analytics
 stream-jobs/    Stream Analytics query definitions
-functions/      Azure Functions for downstream processing
-simulator/      Device simulator for load and integration testing
+dashboards/     ADX dashboard KQL queries and setup guide
 docs/           Architecture diagrams, hardware setup guide, design notes
 ```
 
@@ -157,11 +156,18 @@ This project is under active development. Current state:
 - [x] Device firmware (Arduino, dual-sensor JSON telemetry)
 - [x] Python bridge with structured parsing and async IoT Hub forwarding
 - [x] Unit tests for bridge components (13 passing)
-- [x] Azure infrastructure (Bicep — IoT Hub, Storage, ADX, Stream Analytics)
+- [x] Azure infrastructure (Bicep — IoT Hub S1, Storage, ADX, Stream Analytics)
 - [x] Architecture documentation and hardware setup guide
+- [x] IoT Hub direct ingestion to ADX (SensorReadings — confirmed with live data)
 - [x] Stream Analytics anomaly detection job (spike/dip on temperature and vibration)
-- [x] Device-to-cloud data flow verified (800+ messages ingested)
-- [ ] ADX dashboard (real-time telemetry and anomaly views)
-- [ ] Azure Functions for downstream processing
-- [ ] Device simulator for load testing
-- [ ] End-to-end integration tests
+- [x] Raw telemetry archival to ADLS Gen2 (blob storage)
+- [x] ADX dashboard KQL queries (14 queries across 3 pages — telemetry, anomalies, device health)
+- [ ] ADX dashboard tiles (manual pin-to-dashboard from documented queries)
+
+### In a production deployment
+
+- Device simulator for load testing and CI integration
+- End-to-end integration tests with synthetic telemetry
+- Application Insights + OpenTelemetry instrumentation on the bridge
+- Azure Monitor alerts for device offline, latency threshold breach, anomaly rate spike
+- Azure Functions for downstream processing and alert automation

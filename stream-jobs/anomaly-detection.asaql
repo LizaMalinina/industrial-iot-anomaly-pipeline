@@ -1,13 +1,3 @@
-SELECT
-    device_id,
-    seq,
-    temperature_c,
-    vibration_raw,
-    [timestamp],
-    bridge_version
-INTO [rawArchiveOutput]
-FROM [iotHubTelemetry];
-
 WITH AnomalyDetectionStep AS
 (
     SELECT
@@ -23,6 +13,17 @@ WITH AnomalyDetectionStep AS
             OVER (PARTITION BY device_id LIMIT DURATION(second, 60)) AS VibrationSpikeAndDip
     FROM [iotHubTelemetry] TIMESTAMP BY [timestamp]
 )
+
+SELECT
+    device_id,
+    seq,
+    temperature_c,
+    vibration_raw,
+    [timestamp],
+    bridge_version
+INTO [blobArchive]
+FROM AnomalyDetectionStep
+
 SELECT
     device_id,
     seq,
@@ -34,7 +35,7 @@ SELECT
     CAST(GetRecordPropertyValue(TemperatureSpikeAndDip, 'IsAnomaly') AS BIGINT) AS temperature_is_anomaly,
     CAST(GetRecordPropertyValue(VibrationSpikeAndDip, 'Score') AS FLOAT) AS vibration_anomaly_score,
     CAST(GetRecordPropertyValue(VibrationSpikeAndDip, 'IsAnomaly') AS BIGINT) AS vibration_is_anomaly
-INTO [adxAnomalyOutput]
+INTO [adxAnomalies]
 FROM AnomalyDetectionStep
 WHERE CAST(GetRecordPropertyValue(TemperatureSpikeAndDip, 'IsAnomaly') AS BIGINT) = 1
-   OR CAST(GetRecordPropertyValue(VibrationSpikeAndDip, 'IsAnomaly') AS BIGINT) = 1;
+   OR CAST(GetRecordPropertyValue(VibrationSpikeAndDip, 'IsAnomaly') AS BIGINT) = 1

@@ -9,12 +9,15 @@ param environmentName string = 'dev'
 @description('Base name used to derive globally unique resource names.')
 param baseName string = 'iiot-anomaly'
 
-@description('IoT Hub SKU. F1 is suitable for dev/test, S1 for paid workloads.')
+@description('IoT Hub name.')
+param iotHubName string = 'iiot-anomaly-s1-dev'
+
+@description('IoT Hub SKU. S1 is the default for the shared dev environment.')
 @allowed([
   'F1'
   'S1'
 ])
-param iotHubSkuName string = 'F1'
+param iotHubSkuName string = 'S1'
 
 @description('Number of IoT Hub units. F1 only supports 1.')
 @minValue(1)
@@ -35,7 +38,6 @@ param telemetryContainerName string = 'raw-telemetry'
 var normalizedBaseName = toLower(replace(baseName, '-', ''))
 var normalizedEnvironmentName = toLower(environmentName)
 var uniqueSuffix = uniqueString(subscription().subscriptionId, resourceGroup().id)
-var iotHubName = take(toLower('${baseName}-${normalizedEnvironmentName}-${uniqueSuffix}'), 50)
 var storageAccountName = take(toLower('st${normalizedBaseName}${normalizedEnvironmentName}${uniqueSuffix}'), 24)
 var adxClusterName = take(toLower('adx${normalizedEnvironmentName}${uniqueSuffix}'), 22)
 var adxDatabaseName = 'telemetry'

@@ -6,14 +6,14 @@ param location string
 @description('Globally unique IoT Hub name.')
 @minLength(3)
 @maxLength(50)
-param iotHubName string
+param iotHubName string = 'iiot-anomaly-s1-dev'
 
-@description('IoT Hub SKU. Use F1 for free tier or S1 for standard tier.')
+@description('IoT Hub SKU. Use S1 for standard tier or F1 for free tier.')
 @allowed([
   'F1'
   'S1'
 ])
-param skuName string
+param skuName string = 'S1'
 
 @description('Number of IoT Hub units. F1 only supports 1.')
 @minValue(1)
