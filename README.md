@@ -59,9 +59,9 @@ ADLS Gen2          ADX (SensorAnomalies)
 
 | Category | Examples | Destination |
 |----------|----------|-------------|
-| Device telemetry | Sensor readings, sequence numbers, device health | IoT Hub → ASA → Storage |
+| Device telemetry | Sensor readings, sequence numbers, device health | IoT Hub → ADX (direct) + ASA → Storage |
 | Pipeline metrics | Message throughput, ingestion latency, dropped events | Azure Monitor |
-| Application traces | Bridge processing time, anomaly events, function execution | Application Insights |
+| Application traces | Bridge processing time, anomaly events | Application Insights |
 | Operational alerts | Device offline, latency threshold breach, anomaly spike | Azure Monitor Alerts |
 
 ### End-to-End Correlation

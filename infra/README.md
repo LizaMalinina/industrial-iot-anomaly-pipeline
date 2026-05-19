@@ -47,7 +47,8 @@ The script creates the resource group if it does not exist and then runs a group
 
 - `location` - defaults to `westeurope`
 - `environmentName` - defaults to `dev`
-- `iotHubSkuName` - `F1` or `S1`
+- `iotHubName` - defaults to `iiot-anomaly-s1-dev`
+- `iotHubSkuName` - `S1` (default) or `F1`
 - `iotHubSkuCapacity` - keep `1` for `F1`
 - `telemetryContainerName` - raw telemetry landing container, defaults to `raw-telemetry`
 
@@ -78,6 +79,6 @@ az iot hub device-identity connection-string show --hub-name <iotHubName> --devi
 
 ## Notes
 
-- IoT Hub names are generated with the environment suffix plus a `uniqueString(...)` value to avoid global naming conflicts.
+- The IoT Hub name defaults to `iiot-anomaly-s1-dev` (S1 tier). Override via `iotHubName` and `iotHubSkuName` parameters.
 - Storage account names are generated in lowercase and trimmed to Azure naming limits.
-- The `F1` IoT Hub tier is limited and intended for lightweight dev/test usage.
+- The `F1` IoT Hub tier has a daily quota of 8,000 messages — use `S1` for sustained workloads.
