@@ -122,13 +122,52 @@ az rest --method put --url ".../outputs/adxAnomalies?api-version=2021-10-01-prev
 **Solution:** After every ASA job recreation:
 1. Get the new principal ID: `az rest --method get ... --query "identity.principalId"`
 2. Grant Storage Blob Data Contributor on the storage account
-3. Grant ADX Ingestor on the telemetry database
-4. Wait 15+ seconds for propagation before starting the job
+3. Grant ADX Database **Ingestor** on the telemetry database
+4. Grant ADX Database **Viewer** on the telemetry database (see below)
+5. Wait 15+ seconds for propagation before starting the job
 
 **How to verify:**
 ```powershell
 az role assignment list --assignee <principalId> --query "[].roleDefinitionName" -o tsv
 ```
+
+### ADX output requires BOTH Ingestor AND Viewer roles
+
+**Symptom:** ASA shows `Forbidden (403): Principal 'aadapp=...' is not authorized to read database 'telemetry'`, with 2-4 errors/min and 0 output events to ADX. Blob output works fine.
+
+**Root cause:** The **Ingestor** role only grants write/ingest permissions. ASA also needs to **read the table schema** to map output columns to the target table. Without **Viewer**, ASA cannot retrieve schema metadata and fails with a 403 on every attempt.
+
+**Solution:** Grant **both** roles on the ADX database using the ASA managed identity's **application (client) ID** (not the object/principal ID):
+
+```powershell
+# 1. Get the ASA identity
+az rest --method get --url ".../streamingjobs/<name>?api-version=2021-10-01-preview" --query "identity"
+# Returns principalId (object ID) and tenantId
+
+# 2. Find the app ID from the error message or Azure AD
+# The error message shows: Principal 'aadapp=<APP_ID>;<TENANT_ID>'
+
+# 3. Grant Ingestor
+az rest --method put --url ".../databases/telemetry/principalAssignments/asa-ingestor?api-version=2023-08-15" \
+  --body '{"properties":{"principalId":"<APP_ID>","principalType":"App","role":"Ingestor","tenantId":"<TENANT_ID>"}}'
+
+# 4. Grant Viewer
+az rest --method put --url ".../databases/telemetry/principalAssignments/asa-viewer?api-version=2023-08-15" \
+  --body '{"properties":{"principalId":"<APP_ID>","principalType":"App","role":"Viewer","tenantId":"<TENANT_ID>"}}'
+```
+
+**Important:** The principal ID format differs between Azure AD and ADX:
+- Azure AD / ARM uses the **object (principal) ID** (e.g., `cfedee86-...`)
+- ADX principal assignments use the **application (client) ID** (e.g., `1e800cc2-...`)
+- The error message reveals the app ID in the format `aadapp=<APP_ID>;<TENANT_ID>`
+
+### ASA validates ALL configured outputs, even unused ones
+
+**Symptom:** ASA shows errors even though the query doesn't write to a particular output.
+
+**Root cause:** ASA periodically health-checks every configured output, regardless of whether the query's `SELECT INTO` references it. If any output has auth or connectivity issues, errors accumulate even when that output receives no data.
+
+**Solution:** Either fix the output's permissions/connectivity, or delete the output from the job if it's not in use. There is no way to "disable" an output without removing it.
 
 ### ASA errors when ADX cluster is stopped
 
@@ -142,6 +181,12 @@ az role assignment list --assignee <principalId> --query "[].roleDefinitionName"
 1. `az rest --method post .../clusters/<name>/start` (ADX)
 2. Wait for `properties.state == "Running"` (~5-10 min)
 3. `az rest --method post .../streamingjobs/<name>/start` (ASA)
+4. Start the Python bridge (messages must flow for ASA to process)
+
+**Shutdown order** (reverse):
+1. Stop the Python bridge
+2. `az rest --method post .../streamingjobs/<name>/stop` (ASA)
+3. `az rest --method post .../clusters/<name>/stop` (ADX) — saves ~$5/day on Dev/Test SKU
 
 ### AnomalyDetection_SpikeAndDip requires sustained data for anomalies
 
@@ -153,6 +198,14 @@ az role assignment list --assignee <principalId> --query "[].roleDefinitionName"
 - Touch the TMP36 sensor to spike temperature
 - Tap or press the piezo disc for vibration spikes
 - Check `SensorAnomalies | count` after 2–3 minutes
+
+### ASA `JobStartTime` mode skips historical events
+
+**Symptom:** You created a temperature spike, but `SensorAnomalies` is empty after restarting ASA.
+
+**Root cause:** Starting ASA with `outputStartMode: "JobStartTime"` tells it to only process events arriving **after** the job starts. If the anomaly event occurred before the restart, ASA never sees it.
+
+**Solution:** If you need to reprocess past events, use `outputStartMode: "LastOutputEventTime"` (resumes from where it left off) or `"CustomTime"` with a specific timestamp. Note that `"JobStartTime"` also means the anomaly detection function starts with no baseline — it needs ~2 minutes of steady data before it can detect deviations.
 
 ---
 
@@ -200,15 +253,10 @@ git config user.name "<your-github-username>"
 
 ## ADX Dashboards
 
-### JSON import silently fails
+### Custom JSON import silently fails — use ADX-exported JSON
 
-**Symptom:** Selecting a JSON file for import does nothing — no error, no dashboard.
+**Symptom:** Selecting a custom-built JSON file for import does nothing — no error, no dashboard.
 
 **Root cause:** ADX dashboard import only accepts files exported from the ADX dashboard UI itself. Custom-generated JSON (even with correct-looking schema) is silently rejected.
 
-**Solution:** Create dashboards manually using the "Pin to dashboard" workflow:
-1. Run a KQL query in the web UI
-2. Click **Pin to dashboard** in the toolbar
-3. Choose the dashboard and visual type
-
-Dashboard KQL queries are documented in `dashboards/README.md`.
+**Solution:** Create the dashboard manually first (using "Pin to dashboard"), then export it via **Dashboard → Share → Export file**. The exported JSON can be re-imported on other clusters. An exported dashboard file is included at `dashboards/dashboard-Monitoring.json`.
