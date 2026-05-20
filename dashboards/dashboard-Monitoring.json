@@ -586,7 +586,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| project timestamp, value = temperature_c, series = \"Normal Reading\", device_id;\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and temperature_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = temperature_c, series = \"Anomaly\", device_id;\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(temperature_c) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and temperature_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = temperature_c, device_id, series = \"\u26a0 Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
       "id": "909ecaed-1cd4-4003-bee4-2d1e60d4a262",
       "usedVariables": []
     },
@@ -595,7 +595,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| project timestamp, value = toreal(vibration_raw), series = \"Normal Reading\", device_id;\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and vibration_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = toreal(vibration_raw), series = \"Anomaly\", device_id;\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(toreal(vibration_raw)) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and vibration_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = toreal(vibration_raw), device_id, series = \"\u26a0 Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
       "id": "c1f1ce33-338c-4d48-b0f5-adec2f14cf87",
       "usedVariables": []
     },
@@ -656,4 +656,5 @@
   ],
   "embeddedApps": []
 }
+
 

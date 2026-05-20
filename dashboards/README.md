@@ -104,32 +104,34 @@ SensorReadings
 
 ### Temperature Anomalies on Readings — Last 6 Hours
 
-Scatter chart overlaying detected temperature anomalies onto normal temperature readings. Normal readings appear as one series; anomaly points appear as a separate series so spikes are visually obvious.
+Scatter chart overlaying detected temperature anomalies onto normal temperature readings. Normal readings are downsampled to 1-minute averages so anomaly points stand out. Set **Anomaly** series color to red in **Series colors** for best contrast.
 
 ```kql
 let timeRange = ago(6h);
 let readings = SensorReadings
 | where timestamp > timeRange
-| project timestamp, value = temperature_c, series = "Normal Reading", device_id;
+| summarize value = avg(temperature_c) by timestamp = bin(timestamp, 1m), device_id
+| extend series = "Normal Reading";
 let anomalies = SensorAnomalies
 | where event_timestamp > timeRange and temperature_is_anomaly == 1
-| project timestamp = event_timestamp, value = temperature_c, series = "Anomaly", device_id;
+| project timestamp = event_timestamp, value = temperature_c, device_id, series = "⚠ Anomaly";
 union readings, anomalies
 | order by timestamp asc
 ```
 
 ### Vibration Anomalies on Readings — Last 6 Hours
 
-Same overlay approach for vibration data.
+Same overlay approach for vibration data. Normal readings downsampled to 1-minute averages.
 
 ```kql
 let timeRange = ago(6h);
 let readings = SensorReadings
 | where timestamp > timeRange
-| project timestamp, value = toreal(vibration_raw), series = "Normal Reading", device_id;
+| summarize value = avg(toreal(vibration_raw)) by timestamp = bin(timestamp, 1m), device_id
+| extend series = "Normal Reading";
 let anomalies = SensorAnomalies
 | where event_timestamp > timeRange and vibration_is_anomaly == 1
-| project timestamp = event_timestamp, value = toreal(vibration_raw), series = "Anomaly", device_id;
+| project timestamp = event_timestamp, value = toreal(vibration_raw), device_id, series = "⚠ Anomaly";
 union readings, anomalies
 | order by timestamp asc
 ```
