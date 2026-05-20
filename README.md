@@ -42,6 +42,12 @@ ADLS Gen2          ADX (SensorAnomalies)
 
 > In a production deployment, this extends to custom ML models, alert-driven automation, and downstream processing services. See [Observability Model](#observability-model) below.
 
+## Demo
+
+https://github.com/LizaMalinina/industrial-iot-anomaly-pipeline/raw/master/docs/screenshots/demo-dashboard.mp4
+
+*Dashboard reacting to anomaly readings (temperature spike, vibration tap) and device going offline.*
+
 ## Screenshots
 
 ### Hardware Setup
