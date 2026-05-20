@@ -19,7 +19,7 @@ SERIAL_BAUD=9600
 
 ## Run
 
-All commands should be run from the **repository root** (`C:\...\industrial-iot-anomaly-pipeline`), not from inside the `bridge/` folder. This avoids Python import conflicts with standard library modules.
+All commands should be run from the **repository root**, not from inside the `bridge/` folder. This avoids Python import conflicts with standard library modules.
 
 ```powershell
 python -m bridge.bridge

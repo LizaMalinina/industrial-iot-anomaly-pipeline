@@ -40,7 +40,7 @@ ADLS Gen2          ADX (SensorAnomalies)
 - Azure Monitor — platform metrics from IoT Hub and Stream Analytics
 - Application Insights / OpenTelemetry — traces and logs from the Python bridge
 
-> In a production deployment, this extends to Azure Functions for downstream compute, custom ML models, and alert-driven automation. See [Observability Model](#observability-model) below.
+> In a production deployment, this extends to custom ML models, alert-driven automation, and downstream processing services. See [Observability Model](#observability-model) below.
 
 ## Key Design Decisions
 
@@ -169,4 +169,4 @@ This project is under active development. Current state:
 - End-to-end integration tests with synthetic telemetry
 - Application Insights + OpenTelemetry instrumentation on the bridge
 - Azure Monitor alerts for device offline, latency threshold breach, anomaly rate spike
-- Azure Functions for downstream processing and alert automation
+- Downstream processing services for alert automation and custom analytics

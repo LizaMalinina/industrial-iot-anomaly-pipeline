@@ -4,7 +4,7 @@ Azure Bicep infrastructure for the Industrial IoT Anomaly Detection Pipeline.
 
 ## What gets deployed
 
-- Azure IoT Hub (`F1` or `S1`, parameterized) with consumer groups
+- Azure IoT Hub (`S1` by default, `F1` available but not recommended) with consumer groups
 - Storage Account with the `raw-telemetry` blob container (bronze layer)
 - Azure Data Explorer cluster (Dev/Test SKU) with `telemetry` database, `SensorReadings` and `SensorAnomalies` tables, and IoT Hub data connection
 - Azure Stream Analytics job with anomaly detection (spike/dip on temperature and vibration)
@@ -48,8 +48,8 @@ The script creates the resource group if it does not exist and then runs a group
 - `location` - defaults to `westeurope`
 - `environmentName` - defaults to `dev`
 - `iotHubName` - defaults to `iiot-anomaly-s1-dev`
-- `iotHubSkuName` - `S1` (default) or `F1`
-- `iotHubSkuCapacity` - keep `1` for `F1`
+- `iotHubSkuName` - `S1` (default). `F1` is supported but has an 8,000 msg/day quota — avoid for sustained workloads
+- `iotHubSkuCapacity` - `1` (sufficient for dev/test)
 - `telemetryContainerName` - raw telemetry landing container, defaults to `raw-telemetry`
 
 Note: Device identities cannot be created via ARM/Bicep. After deployment, create the device manually:
@@ -81,4 +81,4 @@ az iot hub device-identity connection-string show --hub-name <iotHubName> --devi
 
 - The IoT Hub name defaults to `iiot-anomaly-s1-dev` (S1 tier). Override via `iotHubName` and `iotHubSkuName` parameters.
 - Storage account names are generated in lowercase and trimmed to Azure naming limits.
-- The `F1` IoT Hub tier has a daily quota of 8,000 messages — use `S1` for sustained workloads.
+- ⚠️ The `F1` IoT Hub tier has a daily quota of 8,000 messages and cannot be upgraded to S1 in-place. Use `S1` (~$25/month) for any workload beyond brief testing.

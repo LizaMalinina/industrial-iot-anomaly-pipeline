@@ -10,7 +10,7 @@ config:
 ---
 flowchart TD
   accTitle: End-to-end IoT pipeline architecture
-  accDescr: Data flows from Arduino sensors through Azure IoT Hub, Stream Analytics, dual storage layers, Azure Functions, and into ADX dashboards. Observability spans the full pipeline via Azure Monitor, Application Insights, and OpenTelemetry.
+  accDescr: Data flows from Arduino sensors through a Python bridge to Azure IoT Hub, then splits into direct ADX ingestion for raw telemetry and Stream Analytics for real-time anomaly detection. Anomalies land in ADX while raw data is also archived to blob storage. ADX Dashboards visualize both streams.
 
   subgraph Device [Device Layer]
     A[Arduino Uno + Sensors]
