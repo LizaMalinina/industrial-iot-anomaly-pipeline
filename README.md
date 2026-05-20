@@ -44,7 +44,9 @@ ADLS Gen2          ADX (SensorAnomalies)
 
 ## Demo
 
-https://github.com/LizaMalinina/industrial-iot-anomaly-pipeline/raw/master/docs/screenshots/demo-dashboard.mp4
+<video src="https://github.com/LizaMalinina/industrial-iot-anomaly-pipeline/raw/master/docs/screenshots/demo-dashboard.mp4" controls width="100%">
+  Your browser does not support the video tag. <a href="docs/screenshots/demo-dashboard.mp4">Download the demo</a>.
+</video>
 
 *Dashboard reacting to anomaly readings (temperature spike, vibration tap) and device going offline.*
 
