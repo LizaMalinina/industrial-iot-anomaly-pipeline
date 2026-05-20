@@ -1,7 +1,7 @@
 {
   "$schema": "https://dataexplorer.azure.com/static/d/schema/75/dashboard.json",
   "id": "9fc80d57-c0eb-4836-ab34-0ce554f4596b",
-  "eTag": "abec17ea-2513-4495-9583-0476f452bd0b",
+  "eTag": "3b413858-aee7-45f5-9778-9ea9f31afbd4",
   "title": "Monitoring",
   "schema_version": 75,
   "tiles": [
@@ -26,7 +26,7 @@
             "id": "-1",
             "label": "",
             "columns": [],
-            "yAxisMaximumValue": null,
+            "yAxisMaximumValue": 35,
             "yAxisMinimumValue": null,
             "yAxisScale": "linear",
             "horizontalLines": []
@@ -204,7 +204,7 @@
             "id": "-1",
             "label": "",
             "columns": [],
-            "yAxisMaximumValue": null,
+            "yAxisMaximumValue": 35,
             "yAxisMinimumValue": null,
             "yAxisScale": "linear",
             "horizontalLines": []
@@ -212,20 +212,28 @@
           "additional": [],
           "showMultiplePanels": false
         },
-        "seriesColors": {},
+        "seriesColors": {
+          "series:Normal Reading:value": "color--(0)"
+        },
         "hideLegend": false,
         "legendLocation": "bottom",
         "xColumnTitle": "",
         "xColumn": null,
         "yColumns": null,
-        "seriesColumns": null,
+        "seriesColumns": [
+          "series"
+        ],
         "xAxisScale": "linear",
         "verticalLine": "",
         "crossFilterDisabled": false,
         "drillthroughDisabled": false,
         "forceAxisTicks": false,
         "crossFilter": [],
-        "drillthrough": []
+        "drillthrough": [],
+        "dataPointsTooltip": {
+          "all": true,
+          "limit": 510
+        }
       }
     },
     {
@@ -263,7 +271,9 @@
         "xColumnTitle": "",
         "xColumn": null,
         "yColumns": null,
-        "seriesColumns": null,
+        "seriesColumns": [
+          "series"
+        ],
         "xAxisScale": "linear",
         "verticalLine": "",
         "crossFilterDisabled": false,
@@ -291,8 +301,10 @@
       "visualOptions": {
         "hideLegend": false,
         "legendLocation": "bottom",
-        "xColumn": null,
-        "yColumns": null,
+        "xColumn": "AnomalyType",
+        "yColumns": [
+          "Count"
+        ],
         "seriesColumns": null,
         "crossFilterDisabled": false,
         "drillthroughDisabled": false,
@@ -586,7 +598,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(temperature_c) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and temperature_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = temperature_c, device_id, series = \"\u26a0 Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(temperature_c) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and temperature_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = temperature_c, device_id, series = \"⚠ Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
       "id": "909ecaed-1cd4-4003-bee4-2d1e60d4a262",
       "usedVariables": []
     },
@@ -595,7 +607,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(toreal(vibration_raw)) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and vibration_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = toreal(vibration_raw), device_id, series = \"\u26a0 Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| summarize value = avg(toreal(vibration_raw)) by timestamp = bin(timestamp, 1m), device_id\r\n| extend series = \"Normal Reading\";\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and vibration_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = toreal(vibration_raw), device_id, series = \"⚠ Anomaly\";\r\nunion readings, anomalies\r\n| order by timestamp asc",
       "id": "c1f1ce33-338c-4d48-b0f5-adec2f14cf87",
       "usedVariables": []
     },
@@ -604,7 +616,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n| project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies\r\n| evaluate narrow()\r\n| project-rename AnomalyType = Column\r\n| project AnomalyType, Count = tolong(Value)",
+      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n| project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies\r\n| evaluate narrow()\r\n| project AnomalyType = Column, Count = tolong(Value)",
       "id": "9cdb42df-ea82-428b-a15f-53f922d6511a",
       "usedVariables": []
     },
@@ -656,5 +668,3 @@
   ],
   "embeddedApps": []
 }
-
-
