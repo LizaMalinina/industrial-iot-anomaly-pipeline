@@ -146,7 +146,8 @@ SensorAnomalies
     VibrationAnomalies = countif(vibration_is_anomaly == 1)
 | project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies
 | evaluate narrow()
-| project-rename AnomalyType = Column, Count = Value
+| project-rename AnomalyType = Column
+| project AnomalyType, Count = tolong(Value)
 ```
 
 ### Recent Anomalies (Last 20)

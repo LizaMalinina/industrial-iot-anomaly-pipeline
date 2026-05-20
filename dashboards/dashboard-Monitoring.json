@@ -604,7 +604,7 @@
         "kind": "inline",
         "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
       },
-      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n| project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies\r\n| evaluate narrow()\r\n| project-rename AnomalyType = Column, Count = Value",
+      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n| project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies\r\n| evaluate narrow()\r\n| project-rename AnomalyType = Column\r\n| project AnomalyType, Count = tolong(Value)",
       "id": "9cdb42df-ea82-428b-a15f-53f922d6511a",
       "usedVariables": []
     },
@@ -656,3 +656,4 @@
   ],
   "embeddedApps": []
 }
+
