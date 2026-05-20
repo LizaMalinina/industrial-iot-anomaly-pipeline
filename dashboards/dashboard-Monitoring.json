@@ -1,0 +1,658 @@
+{
+  "$schema": "https://dataexplorer.azure.com/static/d/schema/75/dashboard.json",
+  "id": "9fc80d57-c0eb-4836-ab34-0ce554f4596b",
+  "eTag": "abec17ea-2513-4495-9583-0476f452bd0b",
+  "title": "Monitoring",
+  "schema_version": 75,
+  "tiles": [
+    {
+      "id": "3753993c-b438-4f3d-8a88-5e07ee93c96f",
+      "title": "Temperature (°C) — Last 1 Hour",
+      "visualType": "timechart",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "750f2298-37b0-4e98-be99-955294dfcf28"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": true,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "565035a1-a647-4cdb-a985-9c4da29d01e7",
+      "title": "Vibration (Raw) — Last 1 Hour",
+      "visualType": "timechart",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 12,
+        "y": 3,
+        "width": 12,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "1e76c87c-bb3c-441c-b602-b5364e014d45"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": true,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "6b5d6ebf-aeb4-40ad-bdb2-716628700c87",
+      "title": "Latest Temperature (°C)",
+      "visualType": "card",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "0590ff16-01cf-4699-ba9d-44de5aa368f5"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorRules": []
+      }
+    },
+    {
+      "id": "2b6344dc-2fa7-4f8b-a639-7536fb0a8bf1",
+      "title": "Latest Vibration (Raw)",
+      "visualType": "card",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a4f18dfe-60ce-4218-a7a3-97404493f4dd"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorRules": []
+      }
+    },
+    {
+      "id": "cf71a9ab-6ac4-4424-8895-b9c0b325445a",
+      "title": "Messages — Last 1 Hour",
+      "visualType": "card",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 12,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "bb483fc0-3ec4-47b2-81aa-62907c531236"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorRules": []
+      }
+    },
+    {
+      "id": "e3524dc4-e1cb-4e19-aaea-d99726d042ae",
+      "title": "Messages — Last 24 Hours",
+      "visualType": "card",
+      "pageId": "33017b45-5b07-4deb-9380-082fa794df68",
+      "layout": {
+        "x": 18,
+        "y": 0,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "436a496d-7ffe-41fe-8424-6b0cbf802458"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorRules": []
+      }
+    },
+    {
+      "id": "8ce4ae10-3f22-4a1b-8e60-747d728c9cae",
+      "title": "Temperature Anomalies on Readings — Last 6 Hours",
+      "visualType": "scatter",
+      "pageId": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "909ecaed-1cd4-4003-bee4-2d1e60d4a262"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "47512291-922b-4cf9-897b-f86a5db2363c",
+      "title": "Vibration Anomalies on Readings — Last 6 Hours",
+      "visualType": "scatter",
+      "pageId": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b",
+      "layout": {
+        "x": 12,
+        "y": 0,
+        "width": 12,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "c1f1ce33-338c-4d48-b0f5-adec2f14cf87"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "2b7b2352-3071-4796-803b-a822380f6e17",
+      "title": "Anomaly Count by Type — Last 24 Hours",
+      "visualType": "pie",
+      "pageId": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 7,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "9cdb42df-ea82-428b-a15f-53f922d6511a"
+      },
+      "visualOptions": {
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "labelDisabled": false,
+        "pie__label": [
+          "name",
+          "percentage"
+        ],
+        "tooltipDisabled": false,
+        "pie__tooltip": [
+          "name",
+          "percentage",
+          "value"
+        ],
+        "pie__orderBy": "size",
+        "pie__kind": "pie",
+        "pie__topNSlices": null,
+        "seriesColors": {},
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "e929bfeb-840e-433f-832a-010e3f1d9264",
+      "title": "Recent Anomalies (Last 20)",
+      "visualType": "table",
+      "pageId": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b",
+      "layout": {
+        "x": 7,
+        "y": 6,
+        "width": 10,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "1957e8e5-ef97-4de8-92d3-7efaad507a2a"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": true,
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": []
+      }
+    },
+    {
+      "id": "84ba2f2e-4869-4699-a990-e4c91efe41a3",
+      "title": "Anomaly Rate — Per Hour (Last 24 Hours)",
+      "visualType": "column",
+      "pageId": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b",
+      "layout": {
+        "x": 17,
+        "y": 6,
+        "width": 7,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "d8cfe2fe-31a1-4637-9b1e-7907f6c3c48f"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "829c09eb-6e64-4a36-835d-8a4ed4968fe8",
+      "title": "Device Last Seen",
+      "visualType": "table",
+      "pageId": "8b08b4f6-a59a-46c0-93a9-bf524e5e1bde",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "5424672d-5ad0-4137-8aea-2e5833fb546b"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": true,
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": []
+      }
+    },
+    {
+      "id": "e0969b0e-e799-4113-a8af-718d82331f1f",
+      "title": "Messages per Minute — Last 1 Hour",
+      "visualType": "line",
+      "pageId": "8b08b4f6-a59a-46c0-93a9-bf524e5e1bde",
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 11,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "87e15db8-d94b-4f62-ac57-dd93e129e6dc"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "seriesColors": {},
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "383a4584-c643-43ce-8b18-1911d378ed90",
+      "title": "Data Gaps (> 5 Minutes) — Last 24 Hours",
+      "visualType": "table",
+      "pageId": "8b08b4f6-a59a-46c0-93a9-bf524e5e1bde",
+      "layout": {
+        "x": 11,
+        "y": 5,
+        "width": 13,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "e1106622-b79e-4d7f-ae32-0cbc8be43e0d"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": true,
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": []
+      }
+    }
+  ],
+  "baseQueries": [],
+  "parameters": [
+    {
+      "kind": "duration",
+      "id": "3a080db5-8b3c-4ded-a15c-0b3eb8d708c1",
+      "displayName": "Time range",
+      "description": "",
+      "beginVariableName": "_startTime",
+      "endVariableName": "_endTime",
+      "defaultValue": {
+        "kind": "dynamic",
+        "count": 1,
+        "unit": "hours"
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
+    }
+  ],
+  "dataSources": [
+    {
+      "id": "8b6f1458-23a7-4d54-83a4-570ddc5636ef",
+      "kind": "manual-kusto",
+      "name": "IOT",
+      "clusterUri": "https://adxdevkllur2lxqqguo.westeurope.kusto.windows.net/",
+      "database": "telemetry"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Live Telemetry Overview",
+      "id": "33017b45-5b07-4deb-9380-082fa794df68"
+    },
+    {
+      "name": "Anomaly Detection",
+      "id": "1122f4f9-9f82-4dd7-8c8e-b36d4e00258b"
+    },
+    {
+      "name": "Device Health",
+      "id": "8b08b4f6-a59a-46c0-93a9-bf524e5e1bde"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(1h)\r\n| project timestamp, temperature_c, device_id\r\n| order by timestamp asc",
+      "id": "750f2298-37b0-4e98-be99-955294dfcf28",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(1h)\r\n| project timestamp, vibration_raw, device_id\r\n| order by timestamp asc",
+      "id": "1e76c87c-bb3c-441c-b602-b5364e014d45",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| summarize arg_max(timestamp, temperature_c) by device_id\r\n| project device_id, temperature_c, timestamp",
+      "id": "0590ff16-01cf-4699-ba9d-44de5aa368f5",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| summarize arg_max(timestamp, vibration_raw) by device_id\r\n| project device_id, vibration_raw, timestamp",
+      "id": "a4f18dfe-60ce-4218-a7a3-97404493f4dd",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(1h)\r\n| summarize MessageCount = count()",
+      "id": "bb483fc0-3ec4-47b2-81aa-62907c531236",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(24h)\r\n| summarize MessageCount = count()",
+      "id": "436a496d-7ffe-41fe-8424-6b0cbf802458",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| project timestamp, value = temperature_c, series = \"Normal Reading\", device_id;\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and temperature_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = temperature_c, series = \"Anomaly\", device_id;\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "id": "909ecaed-1cd4-4003-bee4-2d1e60d4a262",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "let timeRange = ago(6h);\r\nlet readings = SensorReadings\r\n| where timestamp > timeRange\r\n| project timestamp, value = toreal(vibration_raw), series = \"Normal Reading\", device_id;\r\nlet anomalies = SensorAnomalies\r\n| where event_timestamp > timeRange and vibration_is_anomaly == 1\r\n| project timestamp = event_timestamp, value = toreal(vibration_raw), series = \"Anomaly\", device_id;\r\nunion readings, anomalies\r\n| order by timestamp asc",
+      "id": "c1f1ce33-338c-4d48-b0f5-adec2f14cf87",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n| project-rename ['Temperature'] = TemperatureAnomalies, ['Vibration'] = VibrationAnomalies\r\n| evaluate narrow()\r\n| project-rename AnomalyType = Column, Count = Value",
+      "id": "9cdb42df-ea82-428b-a15f-53f922d6511a",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorAnomalies\r\n| extend SensorType = case(\r\n    temperature_is_anomaly == 1 and vibration_is_anomaly == 1, \"Both\",\r\n    temperature_is_anomaly == 1, \"Temperature\",\r\n    vibration_is_anomaly == 1, \"Vibration\",\r\n    \"Unknown\")\r\n| extend AnomalyScore = iff(temperature_is_anomaly == 1, temperature_anomaly_score, vibration_anomaly_score)\r\n| extend MeasureValue = iff(temperature_is_anomaly == 1, temperature_c, toreal(vibration_raw))\r\n| project event_timestamp, device_id, SensorType, MeasureValue, AnomalyScore, temperature_anomaly_score, vibration_anomaly_score\r\n| top 20 by event_timestamp desc",
+      "id": "1957e8e5-ef97-4de8-92d3-7efaad507a2a",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorAnomalies\r\n| where event_timestamp > ago(24h)\r\n| summarize\r\n    TemperatureAnomalies = countif(temperature_is_anomaly == 1),\r\n    VibrationAnomalies = countif(vibration_is_anomaly == 1)\r\n    by bin(event_timestamp, 1h)\r\n| order by event_timestamp asc",
+      "id": "d8cfe2fe-31a1-4637-9b1e-7907f6c3c48f",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| summarize\r\n    LastSeen = max(timestamp),\r\n    TotalMessages = count(),\r\n    LastTemperature = arg_max(timestamp, temperature_c),\r\n    LastVibration = arg_max(timestamp, vibration_raw)\r\n    by device_id\r\n| extend TimeSinceLastSeen = now() - LastSeen\r\n| extend Status = iff(TimeSinceLastSeen < 5m, '🟢 Online', iff(TimeSinceLastSeen < 30m, '🟡 Stale', '🔴 Offline'))\r\n| project device_id, Status, LastSeen, TimeSinceLastSeen, TotalMessages\r\n| order by LastSeen desc",
+      "id": "5424672d-5ad0-4137-8aea-2e5833fb546b",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(1h)\r\n| summarize MessageCount = count() by bin(timestamp, 1m), device_id\r\n| order by timestamp asc",
+      "id": "87e15db8-d94b-4f62-ac57-dd93e129e6dc",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "8b6f1458-23a7-4d54-83a4-570ddc5636ef"
+      },
+      "text": "SensorReadings\r\n| where timestamp > ago(24h)\r\n| order by device_id asc, timestamp asc\r\n| serialize\r\n| extend PrevTimestamp = prev(timestamp), PrevDevice = prev(device_id)\r\n| where device_id == PrevDevice\r\n| extend GapDuration = timestamp - PrevTimestamp\r\n| where GapDuration > 5m\r\n| project device_id, GapStart = PrevTimestamp, GapEnd = timestamp, GapDuration\r\n| order by GapStart desc",
+      "id": "e1106622-b79e-4d7f-ae32-0cbc8be43e0d",
+      "usedVariables": []
+    }
+  ],
+  "embeddedApps": []
+}

@@ -100,7 +100,7 @@ bridge/         Python serial-to-cloud forwarder (tested, async)
 infra/          Bicep modules and deployment scripts
   modules/      IoT Hub, Storage, ADX, Stream Analytics
 stream-jobs/    Stream Analytics query definitions
-dashboards/     ADX dashboard KQL queries and setup guide
+dashboards/     ADX dashboard export (importable JSON) and KQL queries reference
 docs/           Architecture diagrams, hardware setup guide, design notes
 ```
 
@@ -161,8 +161,7 @@ This project is under active development. Current state:
 - [x] IoT Hub direct ingestion to ADX (SensorReadings — confirmed with live data)
 - [x] Stream Analytics anomaly detection job (spike/dip on temperature and vibration)
 - [x] Raw telemetry archival to ADLS Gen2 (blob storage)
-- [x] ADX dashboard KQL queries (14 queries across 3 pages — telemetry, anomalies, device health)
-- [ ] ADX dashboard tiles (manual pin-to-dashboard from documented queries)
+- [x] ADX dashboard (importable JSON + 14 KQL queries across 3 pages — telemetry, anomalies, device health)
 
 ### In a production deployment
 

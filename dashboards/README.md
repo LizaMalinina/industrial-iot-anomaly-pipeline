@@ -6,28 +6,31 @@ Azure Data Explorer dashboard for the IoT Telemetry & Anomaly Detection pipeline
 - **Database:** `telemetry`
 - **Tables:** `SensorReadings`, `SensorAnomalies`
 
-## How to Create the Dashboard
+## Importing the Dashboard
 
-ADX Dashboards are created interactively via the web UI. Use the KQL queries below to build each tile.
-
-### Setup
+The easiest way to set up the dashboard is to import the included export file:
 
 1. Open [Azure Data Explorer web UI](https://dataexplorer.azure.com/)
 2. Add a connection to the cluster: `https://adxdevkllur2lxqqguo.westeurope.kusto.windows.net`
-3. Select the `telemetry` database
-4. Go to **Dashboards → New dashboard**, name it "IoT Telemetry & Anomaly Detection"
+3. Go to **Dashboards → Browse dashboards → Import dashboard from file**
+4. Select [`dashboard-Monitoring.json`](dashboard-Monitoring.json)
+5. The dashboard will be created with all 3 pages, 14 tiles, and the data source pre-configured
 
-### Adding tiles
-
-For each query below:
-1. Run the query in the web UI query editor
-2. Select **Pin to dashboard** in the toolbar
-3. Choose the dashboard, set the tile name and visual type as noted
-4. Adjust layout as needed
+> **Note:** The data source in the export points to the dev cluster. If your cluster URI differs, update it in **Dashboard settings → Data sources** after import.
 
 ### Recommended settings
 - **Auto-refresh:** 1 minute (Settings → Auto refresh)
-- **Time range parameter:** Add a `TimeRange` parameter (default: Last 1 hour) and replace `ago(1h)` in queries with the parameter for interactive filtering
+- **Time range parameter:** The dashboard includes a `Time range` duration parameter (default: Last 1 hour)
+
+## Building Manually
+
+If you prefer to build the dashboard tile-by-tile instead of importing:
+
+1. Go to **Dashboards → New dashboard**, name it "Monitoring"
+2. For each query below, run it in the web UI query editor
+3. Select **Pin to dashboard** in the toolbar
+4. Choose the dashboard, set the tile name and visual type as noted
+5. Adjust layout as needed
 
 ---
 
