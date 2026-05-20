@@ -42,6 +42,38 @@ ADLS Gen2          ADX (SensorAnomalies)
 
 > In a production deployment, this extends to custom ML models, alert-driven automation, and downstream processing services. See [Observability Model](#observability-model) below.
 
+## Screenshots
+
+### Hardware Setup
+<img src="docs/hardware-photo.png" alt="Arduino Uno with TMP36 temperature sensor and piezo vibration sensor on breadboard" width="400">
+
+*Arduino Uno R3 with TMP36 temperature sensor and piezo disc for vibration detection, connected via USB serial to the Python bridge.*
+
+### Live Telemetry Dashboard
+![Live Telemetry Overview](docs/screenshots/dashboard-live-telemetry.png)
+
+*Real-time temperature and vibration charts with stat cards showing latest readings and message throughput.*
+
+### Anomaly Detection Dashboard
+![Anomaly Detection](docs/screenshots/dashboard-anomaly-detection.png)
+
+*Scatter charts overlay detected anomalies (orange ◆) on normal readings (blue ●). Pie chart shows anomaly distribution by type. Table lists the 20 most recent anomaly events with scores.*
+
+### Device Health Dashboard
+![Device Health](docs/screenshots/dashboard-device-health.png)
+
+*Device status (🟢 Online), message throughput per minute, and data gap detection for the last 24 hours.*
+
+### KQL Query — Anomaly Records
+![KQL Anomalies](docs/screenshots/kql-anomalies-query.png)
+
+*SensorAnomalies table showing detected temperature spikes with anomaly scores from the AnomalyDetection_SpikeAndDip function.*
+
+### Azure Resource Group
+![Azure Resources](docs/screenshots/azure-resource-group.png)
+
+*All deployed Azure resources: ADX cluster, Stream Analytics job, IoT Hub (S1), and Storage account — all in West Europe.*
+
 ## Key Design Decisions
 
 | Decision | Rationale |
