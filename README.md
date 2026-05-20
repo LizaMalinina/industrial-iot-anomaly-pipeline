@@ -180,25 +180,3 @@ python -m bridge.bridge
 | Schema evolution | Schemaless raw archive; flexible curated schema; dead-letter for unrecognized payloads |
 | Processing failures | At-least-once delivery; idempotent writes; raw data enables full replay |
 | Scalability | IoT Hub partitions by device; ASA scales via Streaming Units; serverless compute |
-
-## Status
-
-This project is under active development. Current state:
-
-- [x] Device firmware (Arduino, dual-sensor JSON telemetry)
-- [x] Python bridge with structured parsing and async IoT Hub forwarding
-- [x] Unit tests for bridge components (13 passing)
-- [x] Azure infrastructure (Bicep — IoT Hub S1, Storage, ADX, Stream Analytics)
-- [x] Architecture documentation and hardware setup guide
-- [x] IoT Hub direct ingestion to ADX (SensorReadings — confirmed with live data)
-- [x] Stream Analytics anomaly detection job (spike/dip on temperature and vibration)
-- [x] Raw telemetry archival to ADLS Gen2 (blob storage)
-- [x] ADX dashboard (importable JSON + 14 KQL queries across 3 pages — telemetry, anomalies, device health)
-
-### In a production deployment
-
-- Device simulator for load testing and CI integration
-- End-to-end integration tests with synthetic telemetry
-- Application Insights + OpenTelemetry instrumentation on the bridge
-- Azure Monitor alerts for device offline, latency threshold breach, anomaly rate spike
-- Downstream processing services for alert automation and custom analytics
