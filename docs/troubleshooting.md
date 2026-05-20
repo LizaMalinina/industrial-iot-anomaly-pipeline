@@ -130,6 +130,19 @@ az rest --method put --url ".../outputs/adxAnomalies?api-version=2021-10-01-prev
 az role assignment list --assignee <principalId> --query "[].roleDefinitionName" -o tsv
 ```
 
+### ASA errors when ADX cluster is stopped
+
+**Symptom:** ASA job shows 3-4 errors/min and 0 output events, even though the query is valid and blob output tests succeed.
+
+**Root cause:** If the ADX output is configured on the ASA job but the ADX cluster is stopped, ASA periodically validates all configured outputs — including unused ones. The failed health checks count as errors and can block all output processing.
+
+**Solution:** Always start the ADX cluster before starting the ASA job. If stopping ADX for cost savings, stop ASA first. On restart, start ADX → wait until Running → then start ASA.
+
+**Startup order:**
+1. `az rest --method post .../clusters/<name>/start` (ADX)
+2. Wait for `properties.state == "Running"` (~5-10 min)
+3. `az rest --method post .../streamingjobs/<name>/start` (ASA)
+
 ### AnomalyDetection_SpikeAndDip requires sustained data for anomalies
 
 **Symptom:** `SensorAnomalies` table is empty even though ASA is processing events.
